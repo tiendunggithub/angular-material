@@ -23,6 +23,7 @@ export class WeatherComponent implements OnInit {
       location: ['']
     });
     this.sendToAPIXU('Thua Thien Hue');
+    this.getLocation();
   }
 
   lstTime: any[] = [];
@@ -38,6 +39,33 @@ export class WeatherComponent implements OnInit {
       this.weatherDataMultiDay = this.weatherDataMultiDay.forecast.forecastday;
       console.log('test: ', this.weatherDataMultiDay);
       console.log('7 day: ', data);
+    })
+  }
+
+  lat: any;
+  lng: any;
+  getLocation(){
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(data => {
+        if (data) {
+          console.log("Latitude: " + data.coords.latitude +
+            "Longitude: " + data.coords.longitude);
+          this.lat = data.coords.latitude;
+          this.lng = data.coords.longitude;
+          console.log(this.lat);
+          console.log(this.lng);
+          this.getFirst(this.lat, this.lng);
+        }
+      },
+        error => console.log(error));
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  }
+
+  getFirst(lat:any, lon: any){
+    this.apixuService.getWeatherSearch(lat, lon).subscribe(data=>{
+      console.log('weather first: ', data);
     })
   }
 }

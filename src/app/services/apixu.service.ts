@@ -28,4 +28,11 @@ export class ApixuService {
       'http://api.weatherapi.com/v1/history.json?key=25496ccd0f334302b9b92747232203&q='+ location +'&days=7&lang=vi'
     );
   }
+
+  //Search API
+  getWeatherSearch(lat: any, lon: any){
+    return this.http.get(
+      'http://api.weatherapi.com/v1/ip.json?key=25496ccd0f334302b9b92747232203&lat='+ lat + '&lon=' + lon + '&days=7&lang=vi'
+    );
+  }
 }
