@@ -1,0 +1,142 @@
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <form class="my-4" [formGroup]="weatherSearchForm" (ngSubmit)="sendToAPIXU(location)">
+                    <div class="form-group d-flex">
+                        <input width="auto" class="form-control me-1" type="text" id="weatherLocation" [(ngModel)]="location" aria-describedby="weatherLocation" placeholder="Nhập thành phố hoặc mã bưu chính" formControlName="location"/>
+                        <button type="submit" mat-raised-button color="primary"><mat-icon>search</mat-icon></button>
+                    </div>
+                </form> 
+            </div>
+        </div>
+        <p><mat-icon class="room">room</mat-icon> {{this.weatherData?.location.name}} - {{this.weatherData?.location.country}}</p>
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="card-weather my-4 p-4">
+                    <div class="card-header">
+                        <div class="img" >
+                            <img height="100px" width="100px" *ngIf="this.weatherData?.current.condition.icon" src="{{this.weatherData?.current.condition.icon}}" alt="hình ảnh không tồn tại">
+                            <img height="100px" width="100px" *ngIf="!this.weatherData?.current.condition.icon" src="//cdn.weatherapi.com/weather/64x64/day/113.png" alt="hình ảnh không tồn tại">
+                        </div>
+                    </div>
+                    <div class="card-content-now">
+                        <table>
+                            <tr>
+                                <td>
+                                    <p class="float-left">Điều kiện thời tiết:</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="this.status" class="text-end">{{this.status}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="float-left">Nhiệt độ:</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="this.weatherData?.current.temp_c && this.weatherData?.current.temp_f" class="text-end">{{this.weatherData?.current.temp_c}}°C | {{this.weatherData?.current.temp_f}}°F</p>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="float-left">Cảm thấy như:</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="this.weatherData?.current.feelslike_c && this.weatherData?.current.feelslike_f" class="text-end">{{this.weatherData?.current.feelslike_c}}°C | {{this.weatherData?.current.feelslike_f}}°F</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="float-left">Vị trí:</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="this.weatherData?.location.name && this.weatherData?.location.country" class="text-end">{{this.weatherData?.location.name}} - {{this.weatherData?.location.country}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="float-left">Độ ẩm:</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="this.weatherData?.current.humidity" class="text-end">{{this.weatherData?.current.humidity}}%</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="float-left">UV:</p>
+                                </td>
+                                <td>
+                                    <p *ngIf="this.weatherData?.current.uv" class="text-end">{{this.weatherData?.current.uv}}</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h2>Dự báo 7 Ngày tới</h2>
+            <mat-tab-group animationDuration="1000ms" style='min-height:500px'>
+                <mat-tab *ngFor="let lst of weatherDataMultiDay">
+                    <ng-template mat-tab-label>
+                        <div class="img" >
+                            <img height="50px" width="50px" *ngIf="lst?.day.condition.icon" src="{{lst?.day.condition.icon}}" alt="hình ảnh không tồn tại">
+                            <img height="50px" width="50px" *ngIf="!lst?.day.condition.icon" src="//cdn.weatherapi.com/weather/64x64/day/113.png" alt="hình ảnh không tồn tại">
+                        </div>
+                        <label for="">{{lst.date}}</label>
+                      </ng-template>
+                    <div class="card-weather my-4 p-4" >
+                        <div class="card-header row">
+                            <div class="col-md-5 col-4">
+                                <div class="img" >
+                                    <img height="100px" width="100px" *ngIf="lst?.day.condition.icon" src="{{lst?.day.condition.icon}}" alt="hình ảnh không tồn tại">
+                                    <img height="100px" width="100px" *ngIf="!lst?.day.condition.icon" src="//cdn.weatherapi.com/weather/64x64/day/113.png" alt="hình ảnh không tồn tại">
+                                </div>
+                            </div>
+                            <div class="col-md-7 col-8 float-right" >
+                                <p class="text-end">{{lst.day.mintemp_c}}°C | {{lst.day.maxtemp_c}}°C</p>
+                            </div>
+                        </div>
+                        <div class="card-content row">                            
+                            <!-- <div class="content-left col-md-5">
+                                <p class="float-left">Ngày:</p>
+                                <p class="float-left">Điều kiện thời tiết:</p>
+                                <p class="float-left">Nhiệt độ:</p>
+                                <p class="float-left">Độ ẩm:</p>
+                                <p class="float-left">UV:</p>
+                            </div> -->
+                            <!-- <div class="content-right col-md-7">
+                                <p class="text-end">{{lst.date}}</p>
+                                <p class="text-end">{{lst.day.condition.text}}</p>
+                                <p class="text-end">{{lst?.day.avgtemp_c}}°C | {{lst?.day.avgtemp_f}}°F</p> -->
+                                <!-- <p class="text-end">{{lst?.current.feelslike_c}}°C | {{lst?.current.feelslike_f}}°F</p> -->
+                                <!-- <p class="text-end">{{lst?.day.avghumidity}}%</p>
+                                <p class="text-end">{{lst?.day.uv}}</p> -->
+                            <!-- </div> -->
+                            <hr>
+                            <div *ngFor="let lstTime of lst.hour">
+                                <img height="100px" width="100px" *ngIf="lstTime?.condition.icon" src="{{lstTime?.condition.icon}}" alt="hình ảnh không tồn tại">
+                                <img height="100px" width="100px" *ngIf="!lstTime?.condition.icon" src="//cdn.weatherapi.com/weather/64x64/day/113.png" alt="hình ảnh không tồn tại">
+                                <h1>Giờ: {{lstTime.time}}</h1>
+                                <p>Nhiệt độ: {{lstTime.temp_c}}°C</p>
+                                <p>Cảm giác như: {{lstTime.feelslike_c}}°C</p>
+                                <p>Điều kiện thời tiết: {{lstTime?.condition.text}}</p>
+                                <p>Độ ẩm: {{lstTime?.humidity}}%</p>
+                                <p>Khả năng mưa: {{lstTime?.chance_of_rain}}%</p>
+                                <p>Khả năng có tuyết: {{lstTime?.chance_of_snow}}%</p>
+                                <p>Mây che phủ: {{lstTime?.cloud}}</p>
+                                <p>Tầm nhìn: {{lstTime?.vis_km}}km/h</p>
+                                <p>Gió: {{lstTime?.wind_kph}}km/h</p>
+                                <p>Gió giật: {{lstTime?.gust_kph}}kph</p>
+                                <p>Áp suất: {{lstTime?.pressure_mb}}mb</p>
+                                <p>uv: {{lstTime?.uv}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>

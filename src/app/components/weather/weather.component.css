@@ -1,0 +1,35 @@
+
+.content{
+    background-color: rgb(143, 184, 247);
+    min-height: 100vh;
+    color: #fff;
+}
+.img{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}
+.card-weather{
+    font-size: 20px;
+    color: #FFF;
+    border-radius: 25px;
+    width: 100%;
+    box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background-color: #ffffff33;
+}
+.card-content p{
+    margin: 20px 0;
+}
+
+.card-header{
+    align-items: center
+}
+.room{
+    font-size: 14px;
+}
+
+.card-content-now table{
+    width: 100%;
+}
