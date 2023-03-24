@@ -31,23 +31,6 @@ export class WeatherComponent implements OnInit {
     this.apixuService.getWeather(location).subscribe(data => {
       this.weatherData = data;
       console.log(this.weatherData);
-      switch (this.weatherData?.current.condition.text){
-        case 'Sunny':
-          this.status = 'Nhiều nắng';
-          break;
-        case 'Partly cloudy':
-          this.status = 'Mây mù';
-          break;
-        case 'Mist':
-          this.status = 'Sương mù';
-          break;
-        case 'Clear':
-          this.status = 'Sương mù';
-          break;
-        default:
-          this.status = '';
-          break;
-      }
     });
     this.apixuService.getWeatherMultiDay(location).subscribe(data=>{
       // this.weatherDataMultiDay.push(data);

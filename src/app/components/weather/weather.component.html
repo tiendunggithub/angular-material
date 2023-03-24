@@ -27,7 +27,7 @@
                                     <p class="float-left">Điều kiện thời tiết:</p>
                                 </td>
                                 <td>
-                                    <p *ngIf="this.status" class="text-end">{{this.status}}</p>
+                                    <p *ngIf="this.weatherData?.current.condition.text" class="text-end">{{this.weatherData?.current.condition.text}}</p>
                                 </td>
                             </tr>
                             <tr>
@@ -124,12 +124,18 @@
                                 <p>Cảm giác như: {{lstTime.feelslike_c}}°C</p>
                                 <p>Điều kiện thời tiết: {{lstTime?.condition.text}}</p>
                                 <p>Độ ẩm: {{lstTime?.humidity}}%</p>
-                                <p>Khả năng mưa: {{lstTime?.chance_of_rain}}%</p>
-                                <p>Khả năng có tuyết: {{lstTime?.chance_of_snow}}%</p>
+
+                                <p *ngIf="lstTime?.chance_of_rain == 1">Khả năng mưa: Có</p>
+                                <p *ngIf="lstTime?.chance_of_rain == 0">Khả năng mưa: Không</p>
+
+                                <p *ngIf="lstTime?.chance_of_snow == 1">Khả năng có tuyết: Có</p>
+                                <p *ngIf="lstTime?.chance_of_snow == 0">Khả năng có tuyết: Không</p>
+                                
                                 <p>Mây che phủ: {{lstTime?.cloud}}</p>
+                                <p>Lượng mưa: {{lstTime?.precip_mm}}mm</p>
                                 <p>Tầm nhìn: {{lstTime?.vis_km}}km/h</p>
                                 <p>Gió: {{lstTime?.wind_kph}}km/h</p>
-                                <p>Gió giật: {{lstTime?.gust_kph}}kph</p>
+                                <p>Gió giật: {{lstTime?.gust_kph}}km/h</p>
                                 <p>Áp suất: {{lstTime?.pressure_mb}}mb</p>
                                 <p>uv: {{lstTime?.uv}}</p>
                             </div>
